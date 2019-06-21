@@ -1,3 +1,9 @@
+import {
+    FETCH_SMURFS_START,
+    FETCH_SMURFS_SUCCESS,
+    FETCH_SMURFS_FAILURE
+} from "../actions"
+
 /*
   Be sure to import in all of the action types from `../actions`
 */
@@ -22,4 +28,28 @@
   Components can then read your store as, `state` and not `state.fooReducer`.
 */
 
-export default () => {}
+const initialState = {
+    error: "",
+    isLoading: false,
+    smurfs: []
+}
+
+export default (state = initialState, { type, payload }) => {
+    switch (type) {
+        case FETCH_SMURFS_START:
+            return { ...state, error: "", isLoading: true }
+
+        case FETCH_SMURFS_FAILURE:
+            return {
+                ...state,
+                error: payload.msg || `Something has smurfed!`,
+                isLoading: false
+            }
+
+        case FETCH_SMURFS_SUCCESS:
+            return { ...state, error: "", isLoading: false, smurfs: payload }
+
+        default:
+            return state
+    }
+}
