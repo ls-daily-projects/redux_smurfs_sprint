@@ -1,32 +1,11 @@
 import {
     FETCH_SMURFS_START,
     FETCH_SMURFS_SUCCESS,
-    FETCH_SMURFS_FAILURE
+    FETCH_SMURFS_FAILURE,
+    ADD_SMURF_FAILURE,
+    ADD_SMURF_START,
+    ADD_SMURF_SUCCESS
 } from "../actions"
-
-/*
-  Be sure to import in all of the action types from `../actions`
-*/
-
-/*
- Your initial/default state for this project could *Although does not have to* look a lot like this
- {
-   smurfs: [],
-   fetchingSmurfs: false
-   addingSmurf: false
-   updatingSmurf: false
-   deletingSmurf: false
-   error: null
- }
-*/
-
-/*
-  You'll only need one smurf reducer for this project.
-  Feel free to export it as a default and import as rootReducer. 
-  This will guard your namespacing issues.
-  There is no need for 'combineReducers' in this project.
-  Components can then read your store as, `state` and not `state.fooReducer`.
-*/
 
 const initialState = {
     error: "",
@@ -36,18 +15,33 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
     switch (type) {
-        case FETCH_SMURFS_START:
-            return { ...state, error: "", isLoading: true }
+        case (FETCH_SMURFS_START, ADD_SMURF_START):
+            const s1 = { ...state, error: "", isLoading: true }
+            return s1
 
-        case FETCH_SMURFS_FAILURE:
-            return {
+        case (FETCH_SMURFS_FAILURE, ADD_SMURF_FAILURE):
+            const s2 = {
                 ...state,
-                error: payload.msg || `Something has smurfed!`,
+                error: payload || `Something has smurfed!`,
                 isLoading: false
             }
+            return s2
 
         case FETCH_SMURFS_SUCCESS:
-            return { ...state, error: "", isLoading: false, smurfs: payload }
+            return {
+                ...state,
+                error: "",
+                isLoading: false,
+                smurfs: payload
+            }
+
+        case ADD_SMURF_SUCCESS:
+            return {
+                ...state,
+                error: "",
+                isLoading: false,
+                smurfs: payload
+            }
 
         default:
             return state

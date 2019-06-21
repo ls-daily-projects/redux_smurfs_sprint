@@ -8,7 +8,7 @@ server.use(cors())
 
 const sendUserError = (msg, res) => {
     res.status(422)
-    res.json({ Error: msg })
+    res.json({ error: msg })
     return
 }
 
