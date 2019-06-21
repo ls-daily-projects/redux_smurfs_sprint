@@ -21,6 +21,7 @@ const Smurf = props => {
                 <p>{props.age}</p>
                 <p>{props.height}</p>
                 <button onClick={didStartEdit}>Edit</button>
+                <button onClick={() => props.onRemove(props.id)}>Remove</button>
             </>
         )
     }
