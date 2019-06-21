@@ -1,11 +1,37 @@
-import React from "react"
+import React, { useState } from "react"
 
-const Smurf = ({ name, age, height }) => {
+import AddSmurfForm from "./AddSmurfForm"
+
+const Smurf = props => {
+    const [isEditing, setIsEditing] = useState(false)
+
+    const didStartEdit = () => {
+        setIsEditing(true)
+    }
+
+    const didEndEdit = smurf => {
+        setIsEditing(false)
+        props.onEdit(props.id, smurf)
+    }
+
+    const SmurfView = () => {
+        return (
+            <>
+                <h3>{props.name}</h3>
+                <p>{props.age}</p>
+                <p>{props.height}</p>
+                <button onClick={didStartEdit}>Edit</button>
+            </>
+        )
+    }
+
     return (
         <>
-            <h3>{name}</h3>
-            <p>{age}</p>
-            <p>{height}</p>
+            {isEditing ? (
+                <AddSmurfForm didSubmitSmurf={didEndEdit} {...props} />
+            ) : (
+                <SmurfView />
+            )}
         </>
     )
 }

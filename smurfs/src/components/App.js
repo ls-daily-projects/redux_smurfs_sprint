@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import { fetchSmurfs, addSmurf } from "../actions"
+import { fetchSmurfs, addSmurf, editSmurf } from "../actions"
 import SmurfList from "./SmurfList"
 import AddSmurfForm from "./AddSmurfForm"
 
@@ -18,7 +18,10 @@ class App extends Component {
                 <AddSmurfForm didSubmitSmurf={this.props.addSmurf} />
                 {this.props.isLoading && <p>Loading...</p>}
                 {this.props.error && <p>{this.props.error}</p>}
-                <SmurfList smurfs={this.props.smurfs} />
+                <SmurfList
+                    smurfs={this.props.smurfs}
+                    didEditSmurf={this.props.editSmurf}
+                />
             </>
         )
     }
@@ -30,7 +33,7 @@ const mapStateToProps = ({ error, isLoading, smurfs }) => ({
     smurfs
 })
 
-const mapDispatchToProps = { fetchSmurfs, addSmurf }
+const mapDispatchToProps = { fetchSmurfs, addSmurf, editSmurf }
 
 export default connect(
     mapStateToProps,

@@ -4,7 +4,10 @@ import {
     FETCH_SMURFS_FAILURE,
     ADD_SMURF_FAILURE,
     ADD_SMURF_START,
-    ADD_SMURF_SUCCESS
+    ADD_SMURF_SUCCESS,
+    EDIT_SMURF_FAILURE,
+    EDIT_SMURF_START,
+    EDIT_SMURF_SUCCESS
 } from "../actions"
 
 const initialState = {
@@ -15,11 +18,11 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
     switch (type) {
-        case (FETCH_SMURFS_START, ADD_SMURF_START):
+        case (FETCH_SMURFS_START, ADD_SMURF_START, EDIT_SMURF_START):
             const s1 = { ...state, error: "", isLoading: true }
             return s1
 
-        case (FETCH_SMURFS_FAILURE, ADD_SMURF_FAILURE):
+        case (FETCH_SMURFS_FAILURE, ADD_SMURF_FAILURE, EDIT_SMURF_FAILURE):
             const s2 = {
                 ...state,
                 error: payload || `Something has smurfed!`,
@@ -36,6 +39,14 @@ export default (state = initialState, { type, payload }) => {
             }
 
         case ADD_SMURF_SUCCESS:
+            return {
+                ...state,
+                error: "",
+                isLoading: false,
+                smurfs: payload
+            }
+
+        case EDIT_SMURF_SUCCESS:
             return {
                 ...state,
                 error: "",
